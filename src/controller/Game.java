@@ -46,11 +46,9 @@ public class Game
 	public boolean validate(String pieceName, int x, int y, Player player)
 	{
 		Coordinates co = chessboard.getPositions().get(new ChessMen(pieceName, player.getColor()));
+		//if there are no coordinates present
 		if(co == null)
-		{
-			System.out.println("no coordinates for piece: " + pieceName);
 			return false;
-		}
 		int a = co.getX();
 		int b = co.getY();
 
