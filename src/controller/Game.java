@@ -17,7 +17,10 @@ public class Game
 	Player p2;
 
 	/**
-	 * Default constructor
+	 * Default constructor to create a game
+	 * 
+	 * @param player1
+	 * @param player2
 	 */
 	public Game(String player1, String player2)
 	{
@@ -27,6 +30,11 @@ public class Game
 		CurrentPlayer = p1;
 	}
 
+	/**
+	 * Special constructor for creating hypothetical chessboards in order to check for conditions
+	 * @param secondboard
+	 * @param p
+	 */
 	public Game(Data secondboard, Player p)
 	{
 		
@@ -39,16 +47,21 @@ public class Game
 
 	/**
 	 * Method to validate the move
-	 * @param piece
+	 * 
+	 * @param pieceName
 	 * @param x
 	 * @param y
+	 * @param player
+	 * @return
 	 */
 	public boolean validate(String pieceName, int x, int y, Player player)
 	{
 		Coordinates co = chessboard.getPositions().get(new ChessMen(pieceName, player.getColor()));
-		//if there are no coordinates present
 		if(co == null)
+		{
+			System.out.println("no coordinates for piece: " + pieceName);
 			return false;
+		}
 		int a = co.getX();
 		int b = co.getY();
 
@@ -75,7 +88,8 @@ public class Game
 
 
 	/**
-	 * Method to move piece
+	 * Method to move a piece
+	 * 
 	 * @param piece
 	 * @param a
 	 * @param b
@@ -97,22 +111,18 @@ public class Game
 			dest.setPosition(new Coordinates(x, y));
 
 			chessboard.setElement(piece);
-			chessboard.setElement(dest);
-			
+			chessboard.setElement(dest);			
 			return false;
 		}
-
 		return true;
 	}
-
+	
 	/**
 	 * Method to check for Check condition 
 	 * @return
 	 */
 	public boolean checkCheck(Player player)
 	{
-//		if(player == null)
-//			System.out.println(getCurrentPlayer());
 		Player opponentPlayer;
 		if(player.getColor().equalsIgnoreCase(p1.getColor()))
 			opponentPlayer = p2;
@@ -210,7 +220,7 @@ public class Game
 
 	/**
 	 * Method to set current player
-	 * @param i
+	 * @param i - number of the player 1 or 2
 	 */
 	public void setCurrentPlayer(int i)
 	{
@@ -220,10 +230,18 @@ public class Game
 			this.CurrentPlayer = p2;
 	}
 
+	/**
+	 * Method to check for Check condition
+	 * @return
+	 */
 	public boolean isCheck() {
 		return check;
 	}
 
+	/**
+	 * Method to set whether it is Check or not
+	 * @param check
+	 */
 	public void setCheck(boolean check) {
 		this.check = check;
 	}
